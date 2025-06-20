@@ -1,4 +1,4 @@
-name: DevSecOps CI Pipeline with Security Scan
+name: DevSecOps CI Pipeline with Python Dependency Scan
 
 on: [push]
 
@@ -11,7 +11,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Run Hello Command
-      run: echo "Hello, Uyi! Your CI Pipeline is working!"
+      run: echo "Hello Uyi, your CI pipeline is working!"
 
     - name: Install Trivy Scanner
       run: |
@@ -20,6 +20,9 @@ jobs:
         wget https://github.com/aquasecurity/trivy/releases/download/v0.50.1/trivy_0.50.1_Linux-64bit.deb
         sudo dpkg -i trivy_0.50.1_Linux-64bit.deb
 
-    - name: Run Security Scan on Project Folder
+    - name: Run Filesystem Security Scan
       run: trivy fs .
+
+    - name: Run Python Dependency Vulnerability Scan
+      run: trivy fs --security-checks vuln --file-pattern "**/requirements.txt"
 
