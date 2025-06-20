@@ -1,0 +1,14 @@
+name: Simple CI Pipeline
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Test if pipeline works
+      run: echo "Hello, Uyi! Your CI Pipeline is working!"
