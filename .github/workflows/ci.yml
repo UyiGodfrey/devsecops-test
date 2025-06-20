@@ -1,4 +1,5 @@
-name: Simple CI Pipeline
+
+name: DevSecOps CI Pipeline with Security Scan
 
 on: [push]
 
@@ -10,5 +11,14 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Test if pipeline works
+    - name: Run Hello Command
       run: echo "Hello, Uyi! Your CI Pipeline is working!"
+
+    - name: Install Trivy Scanner
+      run: |
+        sudo apt-get install -y wget
+        wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.50.1_Linux-64bit.deb
+        sudo dpkg -i trivy_0.50.1_Linux-64bit.deb
+
+    - name: Run Security Scan on Project Folder
+      run: trivy fs .
