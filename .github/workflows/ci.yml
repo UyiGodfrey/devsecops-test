@@ -23,6 +23,7 @@ jobs:
     - name: Run Filesystem Security Scan
       run: trivy fs .
 
-    - name: Run Python Dependency Vulnerability Scan
-      run: trivy fs --security-checks vuln --file-pattern "**/requirements.txt"
+    - name: Scan Python dependencies in requirements.txt
+      run: |
+        trivy fs --format table --exit-code 1 --ignore-unfixed --security-checks vuln .
 
